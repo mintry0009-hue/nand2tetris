@@ -5,11 +5,15 @@
 /** 
  * Multiplexor:
  * if (sel = 0) out = a, else out = b
+ * (not(s) and I0) or (s and I1)
  */
 CHIP Mux {
     IN a, b, sel;
     OUT out;
 
     PARTS:
-    //// Replace this comment with your code.
+        Not(in=sel, out=snot);
+        And(a=snot, b=a, out=I0);
+        And(a=sel, b=b, out=I1);
+        Or(a=I0, b=I1, out=out);
 }
